@@ -1,5 +1,9 @@
 void main(List<String> args) {
-  print("hello world.");
+  print("hallo bang.");
+
+  int x= 2;
+  int y= 3;
+  print(x + y);
 }
 
 
