@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    
+    <link rel="stylesheet" type="text/css" href="invoice.css">
+</head>
+<body>
+    <div class="invoice-container">
+        <h1>Invoice</h1>
+        <div id="invoice-details">
+            <h2>Billing Info: <span id="billing-info"></span></h2>
+            <h2>Order Date: <span id="order-date"></span></h2>
+        </div>
+        <table id="product-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Product rows will be dynamically added here -->
+            </tbody>
+        </table>
+        <div id="invoice-summary">
+            <p>Total Amount: <span id="total"></span></p>
+            <p>Tax Amount: <span id="tax"></span></p>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

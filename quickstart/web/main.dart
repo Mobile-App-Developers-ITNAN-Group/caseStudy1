@@ -1,46 +1,128 @@
 import 'dart:html';
 
-void main() {
-  List<Map<String, dynamic>> cartItems = []; // holds the list of items in cart
+List<Map<String, dynamic>> cart = [];
 
-  // Get the add-to-cart buttons and add click event listeners to them
-  List<Element> addToCartBtns = querySelectorAll('.add-to-cart');
-  addToCartBtns.forEach((btn) {
-    btn.onClick.listen((event) {
-      // Get the data-name and data-price attributes from the button element
-      String itemName = btn.dataset['name'];
-      double itemPrice = double.parse(btn.dataset['price']);
+void addToCart(String name, double price) {
+  int quantity = 1;
 
-      // Add the item to the cartItems list
-      cartItems.add({
-        'name': itemName,
-        'price': itemPrice,
-      });
+  Element li = LIElement();
+  Element nameElement = SpanElement();
+  Element priceElement = SpanElement();
+  InputElement quantityInput = InputElement();
+  ButtonElement decreaseButton = ButtonElement();
+  ButtonElement increaseButton = ButtonElement();
 
-      // Update the cart display
-      updateCartDisplay(cartItems);
-    });
+  nameElement.text = name;
+  priceElement.text = '\$${price.toStringAsFixed(2)}';
+  quantityInput.type = 'number';
+  quantityInput.min = '1';
+  quantityInput.max = '99';
+  quantityInput.value = quantity.toString();
+  decreaseButton.text = '-';
+  increaseButton.text = '+';
+
+  li.append(nameElement);
+  li.append(priceElement);
+  li.append(quantityInput);
+  li.append(decreaseButton);
+  li.append(increaseButton);
+
+  Element cartList = querySelector('#cart');
+  cartList.append(li);
+
+  cart.add({'name': name, 'price': price, 'quantity': quantity});
+
+  double total = cart.fold<double>(
+      0, (acc, item) => acc + (item['price'] * item['quantity']));
+  double taxRate = 0.6; // example tax rate of 60%
+  double tax = total * taxRate;
+  double discountRate = 0.1; // example discount rate of 10%
+  double discount = updateDiscount();
+  double superTotal = total + tax - discount;
+  ButtonElement checkoutButton = querySelector('#checkout-button');
+  checkoutButton.onClick.listen((event) {
+    updateSuperTotal();
   });
+
+  querySelector('#total')?.text = '\$${total.toStringAsFixed(2)}';
+  querySelector('#tax')?.text = '\$${tax.toStringAsFixed(2)}';
 }
 
-// Update the cart display with the current list of cart items
-void updateCartDisplay(List<Map<String, dynamic>> cartItems) {
-  // Get the cart items list and total price span elements
-  Element cartItemsList = querySelector('#cart-items');
-  Element totalPriceSpan = querySelector('#total-price');
+void updateSuperTotal() {
+  updateDiscount();
+  double total = cart.fold<double>(
+      0, (acc, item) => acc + (item['price'] * item['quantity']));
+  double taxRate = 0.6; // example tax rate of 60%
+  double tax = total * taxRate;
+  double superTotal = total + tax - discount;
+  querySelector('#superTotal')?.text = '\$${superTotal.toStringAsFixed(2)}';
+}
 
-  // Clear the current contents of the cart items list
-  cartItemsList.innerHtml = '';
+double updateDiscount() {
+  double total = cart.fold<double>(
+      0, (acc, item) => acc + (item['price'] * item['quantity']));
+  double discount = total >= 50
+      ? total * 0.1
+      : 0; // apply 10% discount if total is greater than or equal to 50
+  double discountedTotal = total - discount;
+  querySelector('#discount')?.text = '\$${discount.toStringAsFixed(2)}';
+  querySelector('#total')?.text = '\$${discountedTotal.toStringAsFixed(2)}';
+  return discount;
+}
 
-  // Add each cart item to the cart items list
-  double totalPrice = 0;
-  cartItems.forEach((item) {
-    Element li = LIElement()
-      ..text = '${item['name']} - \$${item['price'].toStringAsFixed(2)}';
-    cartItemsList.children.add(li);
-    totalPrice += item['price'];
+void updateTotal() {
+  double total = cart.fold<double>(
+      0, (acc, item) => acc + (item['price'] * item['quantity']));
+  querySelector('#total')?.text = '\$${total.toStringAsFixed(2)}';
+  updateTax();
+}
+
+void updateTax() {
+  double total = cart.fold<double>(
+      0, (acc, item) => acc + (item['price'] * item['quantity']));
+  double taxRate = 0.6; // example tax rate of 60%
+  double tax = total * taxRate;
+  querySelector('#tax')?.text = '\$${tax.toStringAsFixed(2)}';
+}
+
+void main() {
+  final decreaseButton = querySelector('#decrease-button');
+  final increaseButton = querySelector('#increase-button');
+  final quantityInput = querySelector('#quantity-input');
+  final cart = []; // assuming cart is a global variable
+  var quantity = int.parse(quantityInput.value);
+
+  decreaseButton?.onClick.listen((event) {
+    if (quantity > 0) {
+      quantity--;
+      quantityInput.value = quantity.toString();
+      cart.firstWhere((item) => item['name'] == name)['quantity'] = quantity;
+      updateTotal();
+    }
   });
 
-  // Update the total price span with the new total price
-  totalPriceSpan.text = totalPrice.toStringAsFixed(2);
+  increaseButton?.onClick.listen((event) {
+    quantity++;
+    quantityInput.value = quantity.toString();
+    cart.firstWhere((item) => item['name'] == name)['quantity'] = quantity;
+    updateTotal();
+  });
+
+  // Hide the clicked button after it is clicked
+  void hideButton(Event event) {
+    (event.target as ButtonElement).style.display = 'none';
+  }
+
+  generateRandomNumber() {
+    // Generate a random number between 1 and 100
+    var randomNumber = 1 + Random().nextInt(1999999999);
+
+    // Update the text in the HTML element with the new random number
+    querySelector('#random-number')?.text = randomNumber.toString();
+  }
+
+  var today = DateTime.now();
+  var options = DateTimeFormat('en_US').add_yMMMMd().add_EEEE();
+  querySelector('#current-date')?.text =
+      'Today is ${DateFormat(options).format(today)}';
 }
