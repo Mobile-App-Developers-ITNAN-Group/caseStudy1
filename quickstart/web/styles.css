@@ -73,3 +73,35 @@ button {
 button:hover {
   background-color: #111;
 }
+/* Add the following CSS code to style the cart */
+.cart {
+  float: left;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-right: 20px;
+}
+
+.cart h2 {
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.cart ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cart li {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.cart p {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: right;
+}
