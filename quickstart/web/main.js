@@ -72,6 +72,9 @@ function updateTax() {
   document.getElementById("tax").innerText = `$${tax.toFixed(2)}`;
 }
 
+
+
+
   decreaseButton.addEventListener("click", () => {
     if (quantity > 0) {
       quantity--;
