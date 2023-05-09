@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:math';
 
 List<Map<String, dynamic>> cart = [];
 
@@ -27,8 +28,8 @@ void addToCart(String name, double price) {
   li.append(decreaseButton);
   li.append(increaseButton);
 
-  Element cartList = querySelector('#cart');
-  cartList.append(li);
+  final cartList = querySelector('#cart');
+  cartList?.append(li);
 
   cart.add({'name': name, 'price': price, 'quantity': quantity});
 
@@ -39,8 +40,8 @@ void addToCart(String name, double price) {
   double discountRate = 0.1; // example discount rate of 10%
   double discount = updateDiscount();
   double superTotal = total + tax - discount;
-  ButtonElement checkoutButton = querySelector('#checkout-button');
-  checkoutButton.onClick.listen((event) {
+  final checkoutButton = querySelector('#checkout-button');
+  checkoutButton?.onClick.listen((event) {
     updateSuperTotal();
   });
 
@@ -54,6 +55,7 @@ void updateSuperTotal() {
       0, (acc, item) => acc + (item['price'] * item['quantity']));
   double taxRate = 0.6; // example tax rate of 60%
   double tax = total * taxRate;
+  double discount = updateDiscount();
   double superTotal = total + tax - discount;
   querySelector('#superTotal')?.text = '\$${superTotal.toStringAsFixed(2)}';
 }
@@ -90,23 +92,23 @@ void main() {
   final increaseButton = querySelector('#increase-button');
   final quantityInput = querySelector('#quantity-input');
   final cart = []; // assuming cart is a global variable
-  var quantity = int.parse(quantityInput.value);
+  // var quantity = int.parse(quantityInput.value);
 
-  decreaseButton?.onClick.listen((event) {
-    if (quantity > 0) {
-      quantity--;
-      quantityInput.value = quantity.toString();
-      cart.firstWhere((item) => item['name'] == name)['quantity'] = quantity;
-      updateTotal();
-    }
-  });
+  // decreaseButton?.onClick.listen((event) {
+  //   if (quantity > 0) {
+  //     quantity--;
+  //     quantityInput.value = quantity.toString();
+  //     cart.firstWhere((item) => item['name'] == name)['quantity'] = quantity;
+  //     updateTotal();
+  //   }
+  // });
 
-  increaseButton?.onClick.listen((event) {
-    quantity++;
-    quantityInput.value = quantity.toString();
-    cart.firstWhere((item) => item['name'] == name)['quantity'] = quantity;
-    updateTotal();
-  });
+  // increaseButton?.onClick.listen((event) {
+  //   quantity++;
+  //   quantityInput.value = quantity.toString();
+  //   cart.firstWhere((item) => item['name'] == name)['quantity'] = quantity;
+  //   updateTotal();
+  // });
 
   // Hide the clicked button after it is clicked
   void hideButton(Event event) {
@@ -122,7 +124,7 @@ void main() {
   }
 
   var today = DateTime.now();
-  var options = DateTimeFormat('en_US').add_yMMMMd().add_EEEE();
-  querySelector('#current-date')?.text =
-      'Today is ${DateFormat(options).format(today)}';
+  // var options = DateTimeFormat('en_US').add_yMMMMd().add_EEEE();
+  // querySelector('#current-date')?.text =
+  //     'Today is ${DateFormat(options).format(today)}';
 }

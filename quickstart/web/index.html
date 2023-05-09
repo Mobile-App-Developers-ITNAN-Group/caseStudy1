@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple POS System</title>
+    <title>POS System</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header>
-      <h1>Simple POS System</h1>
+      <h1>POS System</h1>
     </header>
-    <nav>
-      <!-- <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Cart</a></li>
-      </ul> -->
-    </nav>
     <div class="cart">
       <h2>Cart</h2>
       <ul id="cart"></ul>
@@ -29,10 +22,11 @@
     </div>
     </div>
     <main>
-      <!-- <h2>Products</h2> -->
+      <!-- Products -->
       <div class="product" id="product1">
-        <img src="product1.jpg" alt="Product 1">
-        <h3>Product 1</h3>
+        <img src="img/grape.jpeg" alt="Grape">
+        <h3 id="name1">Grape</h3>
+        <p id="desc1">Experience the luscious and juicy taste of our hand-picked grapes, bursting with sweetness and flavor that will tantalize your senses.</p>
         <p>Price: $10.00</p>
 			<button id="add-to-cart-button" onclick="addToCart('Product 1', 10.00)">Add to Cart</button>
       <div class="quantity-buttons" style="display: none;">
@@ -42,8 +36,9 @@
         </div>
       </div>
       <div class="product">
-        <img src="product2.jpg" alt="Product 2">
-        <h3>Product 2</h3>
+        <img src="img/banana.jpeg" alt="Banana">
+        <h3 id="name2">Banana</h3>
+        <p id="desc2">Get your daily dose of potassium with our ripe and delicious bananas, the perfect snack for any time of day.</p>
         <p>Price: $20.00</p>
 			<button id="add-to-cart-button2" onclick="addToCart('Product 2', 20.00)">Add to Cart</button>
       <div class="quantity-buttons" style="display: none;">
@@ -53,8 +48,9 @@
       </div>
       </div>
       <div class="product">
-        <img src="product3.jpg" alt="Product 3">
-        <h3>Product 3</h3>
+        <img src="img/apple.jpeg" alt="Apple">
+        <h3 id="name3">Apple</h3>
+        <p id="desc3">Experience the crisp and refreshing taste of nature perfect snack with our hand-picked, premium apples.</p>
         <p>Price: $30.00</p>
 			<button id="add-to-cart-button3" onclick="addToCart('Product 3', 30.00)">Add to Cart</button>
       <div class="quantity-buttons" style="display: none;">
@@ -64,8 +60,9 @@
       </div>
       </div>
       <div class="product">
-        <img src="product4.jpg" alt="Product 4">
-        <h3>Product 4</h3>
+        <img src="img/mango.jpeg" alt="Mango">
+        <h3 id="name4">Mango</h3>
+        <p id="desc4">Experience a taste of paradise with our juicy and succulent mangoes, bursting with tropical flavor that will transport your taste buds to the sunny shores of the Caribbean.</p>
         <p>Price: $120.00</p>
 			<button id="add-to-cart-button3" onclick="addToCart('Product 4', 120.00)">Add to Cart</button>
       <div class="quantity-buttons" style="display: none;">
@@ -75,6 +72,8 @@
       </div>
       </div>
     </main>
-    <script src="main.dart"></script>
+    <script src="main.dart"></script> 
+    <script src="main.js"></script> 
+    <script src="product.dart"></script> 
   </body>
 </html>
